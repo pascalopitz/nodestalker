@@ -22,7 +22,7 @@ client.connect().addListener('connect', function() {
 
 				client.connect().addListener('connect', function() {
 					var _self3 = this;
-					this.deleteJob(new_id, function(data) {
+					this.deleteJob(data[0], function(data) {
 						sys.puts(sys.inspect(data));
 						_self3.disconnect();
 					});

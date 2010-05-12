@@ -1,4 +1,8 @@
 !!!Work in progress
+All commands are there, but responses could be much better, i.e. json structs.
+The tests are usage examples for now and don't do assertions yet.
 
-A Beanstalk client in git, utilizing.
-Hopefully supporting all commands soon.
+-----------------------------------
+
+A Beanstalk client in utilising node.js.
+Depends on the yaml package in kiwi.
