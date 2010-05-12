@@ -6,4 +6,5 @@ var client = bs.Client();
 
 client.stats().onSuccess(function(data) {
 	sys.puts(sys.inspect(data));
+	client.disconnect();
 });

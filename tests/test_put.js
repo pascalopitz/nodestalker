@@ -9,5 +9,6 @@ client.use('default').onSuccess(function(data) {
 
 	client.put('my job').onSuccess(function(data) {
 		sys.puts(sys.inspect(data));
+		client.disconnect();
 	});
 });

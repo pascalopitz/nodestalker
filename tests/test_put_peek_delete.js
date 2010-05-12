@@ -17,6 +17,7 @@ client.put(obj).onSuccess(function(data) {
 
 		client.deleteJob(new_id).onSuccess(function(data) {
 			sys.puts(sys.inspect(data));
+			client.disconnect();
 		});
 	});
 });

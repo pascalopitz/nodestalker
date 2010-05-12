@@ -6,4 +6,5 @@ var client = bs.Client();
 
 client.list_tube_used().onSuccess(function(data) {
 	sys.puts(sys.inspect(data));
+	client.disconnect();
 });

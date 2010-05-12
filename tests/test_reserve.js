@@ -11,7 +11,10 @@ client.watch('default').onSuccess(function(data) {
 		sys.puts(sys.inspect(data));
 
 		if(data.id) {
-			client.deleteJob(data.id);
+			client.disconnect();
+			client.deleteJob(data.id).onSuccess(function() {
+				client.disconnect();
+			});
 		}
 	})
 });

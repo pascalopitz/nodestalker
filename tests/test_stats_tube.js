@@ -6,4 +6,5 @@ var client = bs.Client();
 
 client.stats_tube('default').onSuccess(function(data) {
 	sys.puts(sys.inspect(data));
+	client.disconnect();
 });
