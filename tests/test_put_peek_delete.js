@@ -2,7 +2,7 @@ var sys = require('sys');
 var bs = require('../lib/beanstalk_client');
 
 //bs.Debug.activate();
-var client = bs.Client.Instance();
+var client = bs.Client();
 var new_id;
 
 var obj = "my job", pri=1, delay=0, ttr=60;
