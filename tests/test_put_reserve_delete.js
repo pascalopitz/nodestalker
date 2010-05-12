@@ -10,21 +10,20 @@ client.connect().addListener('connect', function() {
 	var _self = this;
 	
 	this.put(obj, pri, delay, ttr, function(data) {
+		sys.puts(sys.inspect(data));
 		new_id = parseInt(data);
-		sys.puts(new_id);
-		_self.disconnect();
-
 		client.connect().addListener('connect', function() {
 			var _self2 = this;
 			this.reserve(function(data) {
 				sys.puts(sys.inspect(data));
-				_self2.disconnect();
-
 				client.connect().addListener('connect', function() {
 					var _self3 = this;
-					this.deleteJob(data[0], function(data) {
+					this.deleteJob(new_id, function(data) {
 						sys.puts(sys.inspect(data));
 						_self3.disconnect();
+						_self2.disconnect();
+						_self.disconnect();
+						process.exit();
 					});
 				});
 			});
