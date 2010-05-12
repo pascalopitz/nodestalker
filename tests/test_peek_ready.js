@@ -2,12 +2,8 @@ var sys = require('sys');
 var bs = require('../lib/beanstalk_client');
 
 bs.Debug.activate();
-var client = bs.Client;
+var client = bs.Client.Instance();
 
-client.connect().addListener('connect', function() {
-	var _self = this;
-	this.peek_ready(function(data) {
-		sys.puts(sys.inspect(data));
-		_self.disconnect();
-	});
+client.peek_ready().onSuccess(function(data) {
+	sys.puts(sys.inspect(data));
 });
