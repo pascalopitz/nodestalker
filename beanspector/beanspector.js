@@ -53,7 +53,7 @@ var TubeInspector = new function() {
 
 	this.empty = function(tube) {
 		var listFunc = function(data) {
-			sys.puts('listing tube '+tube);
+			sys.puts('emptying tube '+tube);
 			client.reserve().onSuccess(TubeInspector.emptyHandler);
 
 			if(timeout) {
