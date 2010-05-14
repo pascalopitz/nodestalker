@@ -9,14 +9,14 @@ var TubeInspector = new function() {
 	
 	this.listtubes = function() {
 		client.list_tubes().onSuccess(function(data) {
-			sys.puts(data);
+			sys.puts(sys.inspect(data));
 			process.exit();
 		});
 	};
 
 	this.statstube = function(tube) {
 		client.stats_tube(tube).onSuccess(function(data) {
-			sys.puts(JSON.stringify(data));
+			sys.puts(sys.inspect(data));
 			process.exit();
 		});
 	};
@@ -67,20 +67,20 @@ var TubeInspector = new function() {
 	};
 };
 
-switch(process.argv[2]) {
-	case 'lt':
-		TubeInspector.listtubes();
-		break;
+var allowed = [];
+allowed['-h'] = function() { 
+	sys.puts('usage:');
+	sys.puts('node beanspector.js args');
+	sys.puts('  -h: help message');
+	sys.puts('  -lt: Lists tubes');
+	sys.puts('  -st tube: Stats on tube');
+	sys.puts('  -lc tube: Lists tube content');
+	sys.puts('  -te tube: Empties tube');
+};
+allowed['-lt'] = TubeInspector.listtubes,
+allowed['-st'] = function() { TubeInspector.statstube(process.argv[3]); };
+allowed['-lc'] = function() { TubeInspector.listcontent(process.argv[3]); };
+allowed['-te'] = function() { TubeInspector.empty(process.argv[3]); };
 
-	case 'st':
-		TubeInspector.statstube(process.argv[3]);
-		break;
-
-	case 'lc':
-		TubeInspector.listcontent(process.argv[3]);
-		break;
-
-	case 'te':
-		TubeInspector.empty(process.argv[3]);
-		break;
-}
+var func = (typeof allowed[process.argv[2]] == 'undefined') ?  allowed['-h'] : allowed[process.argv[2]];
+func();
