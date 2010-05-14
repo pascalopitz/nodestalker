@@ -7,11 +7,7 @@ Depends on the yaml package in kiwi.
 
 For simple usage examples check the test folder.
 
-It is a bit counter intuitive when one has to close the 
-socket via .disconnect() in order to be able to go through 
-the tube contents by calling reserve()
-
 Also included is the cli demo app 'beanspector', that just outputs
-info about tubes and gives one the possibility to empty it.
+info about tubes and gives one the possibility to empty and put jobs into them.
 
 
