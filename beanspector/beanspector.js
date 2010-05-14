@@ -2,8 +2,6 @@ var sys = require('sys');
 var bt = require('../lib/beanstalk_client');
 var client = bt.Client();
 
-//bt.Debug.activate();
-
 var TubeInspector = new function() {
 	var timeout;
 	
