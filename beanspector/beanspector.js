@@ -91,6 +91,15 @@ var TubeInspector = new function() {
 			});
 		});
 	};
+
+	this.kick = function(tube, input_data) {
+		client.use(tube).onSuccess(function(data) {
+			client.kick(input_data).onSuccess(function(data) {
+				sys.puts(data);
+				client.disconnect();
+			});
+		});
+	};
 };
 
 var allowed = [];
@@ -103,12 +112,14 @@ allowed['-h'] = function() {
 	sys.puts('  -lc tube: Lists tube content');
 	sys.puts('  -te tube: Empties tube');
 	sys.puts('  -pt tube data: Puts job data in tube');
+	sys.puts('  -k tube number: Kicks number of jobs tube');
 };
 allowed['-lt'] = TubeInspector.listtubes,
 allowed['-st'] = function() { TubeInspector.statstube(process.argv[3]); };
 allowed['-lc'] = function() { TubeInspector.listcontent(process.argv[3]); };
 allowed['-te'] = function() { TubeInspector.empty(process.argv[3]); };
 allowed['-pt'] = function() { TubeInspector.put(process.argv[3], process.argv[4]); };
+allowed['-k'] = function() { TubeInspector.kick(process.argv[3], process.argv[4]); };
 
 var func = (typeof allowed[process.argv[2]] == 'undefined') ?  allowed['-h'] : allowed[process.argv[2]];
 func();
