@@ -1,22 +1,34 @@
 var sys = require('sys');  
 var bt = require('../lib/beanstalk_client');
 
+/**
+* default variables
+*/
 var host = '127.0.0.1';
 var port = 11300;
 var argv = [];
 
+/**
+* parse the argvs for host and port
+*/
 for(i in process.argv) {
 	var match = /\-\-(host|port)\=([\d\.\w\-]+)/i.exec(process.argv[i]);
 	
 	if(match) {
-		eval(match[1] + '="' + match[2] + '";')
+		eval(match[1] + '="' + match[2] + '";');
 	} else {
 		argv.push(process.argv[i]);
 	}
 }
 
+/**
+* Create beanstalk client
+*/
 var client = bt.Client(host + ':' + port);
 
+/**
+* Main object containing all beanstalk interactions
+*/
 var TubeInspector = new function() {
 	var timeout;
 	
@@ -45,7 +57,7 @@ var TubeInspector = new function() {
 			timeout = setTimeout(function() {
 				client.disconnect();
 			}, 100);
-		}
+		};
 		
 		client.watch(tube).onSuccess(function(data) {
 			if(tube != 'default') {
@@ -75,7 +87,7 @@ var TubeInspector = new function() {
 			timeout = setTimeout(function() {
 				client.disconnect();
 			}, 100);
-		}
+		};
 		
 		client.watch(tube).onSuccess(function(data) {
 			if(tube != 'default') {
@@ -115,6 +127,9 @@ var TubeInspector = new function() {
 	};
 };
 
+/**
+* allowed commands, an array of functions
+*/
 var allowed = [];
 allowed['-h'] = function() { 
 	sys.puts('usage:');
@@ -127,12 +142,19 @@ allowed['-h'] = function() {
 	sys.puts('  -pt tube data: Puts job data in tube');
 	sys.puts('  -k tube number: Kicks number of jobs tube');
 };
-allowed['-lt'] = TubeInspector.listtubes,
+allowed['-lt'] = TubeInspector.listtubes;
 allowed['-st'] = function() { TubeInspector.statstube(argv[3]); };
 allowed['-lc'] = function() { TubeInspector.listcontent(argv[3]); };
 allowed['-te'] = function() { TubeInspector.empty(argv[3]); };
 allowed['-pt'] = function() { TubeInspector.put(argv[3], argv[4]); };
 allowed['-k'] = function() { TubeInspector.kick(argv[3], argv[4]); };
 
+/**
+* check whether nothing was passed
+*/
 var func = (typeof allowed[argv[2]] == 'undefined') ?  allowed['-h'] : allowed[argv[2]];
+
+/**
+* call defined command
+*/
 func();
