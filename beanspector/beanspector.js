@@ -1,8 +1,22 @@
 var sys = require('sys');  
 var bt = require('../lib/beanstalk_client');
-var client = bt.Client();
 
-//bt.Debug.activate();
+var host = '127.0.0.1';
+var port = 11300;
+
+var argv = [];
+
+for(i in process.argv) {
+	var match = /\-\-(host|port)\=([\d\.\w\-]+)/i.exec(process.argv[i]);
+	
+	if(match) {
+		eval(match[1] + '="' + match[2] + '";')
+	} else {
+		argv.push(process.argv[i]);
+	}
+}
+
+var client = bt.Client(host + ':' + port);
 
 var TubeInspector = new function() {
 	var timeout;
@@ -105,7 +119,7 @@ var TubeInspector = new function() {
 var allowed = [];
 allowed['-h'] = function() { 
 	sys.puts('usage:');
-	sys.puts('node beanspector.js args');
+	sys.puts('node beanspector.js [--port=11300] [--host=127.0.0.1] args');
 	sys.puts('  -h: help message');
 	sys.puts('  -lt: Lists tubes');
 	sys.puts('  -st tube: Stats on tube');
@@ -115,11 +129,11 @@ allowed['-h'] = function() {
 	sys.puts('  -k tube number: Kicks number of jobs tube');
 };
 allowed['-lt'] = TubeInspector.listtubes,
-allowed['-st'] = function() { TubeInspector.statstube(process.argv[3]); };
-allowed['-lc'] = function() { TubeInspector.listcontent(process.argv[3]); };
-allowed['-te'] = function() { TubeInspector.empty(process.argv[3]); };
-allowed['-pt'] = function() { TubeInspector.put(process.argv[3], process.argv[4]); };
-allowed['-k'] = function() { TubeInspector.kick(process.argv[3], process.argv[4]); };
+allowed['-st'] = function() { TubeInspector.statstube(argv[3]); };
+allowed['-lc'] = function() { TubeInspector.listcontent(argv[3]); };
+allowed['-te'] = function() { TubeInspector.empty(argv[3]); };
+allowed['-pt'] = function() { TubeInspector.put(argv[3], argv[4]); };
+allowed['-k'] = function() { TubeInspector.kick(argv[3], argv[4]); };
 
-var func = (typeof allowed[process.argv[2]] == 'undefined') ?  allowed['-h'] : allowed[process.argv[2]];
+var func = (typeof allowed[argv[2]] == 'undefined') ?  allowed['-h'] : allowed[argv[2]];
 func();
