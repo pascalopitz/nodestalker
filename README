@@ -1,13 +1,46 @@
-!!!Work in progress
-The tests are usage examples for now and don't do proper assertions yet.
------------------------------------
+A Beanstalk client utilising node.js.
+Depends on the yaml package from the kiwi package manager.
 
-A Beanstalk client in utilising node.js.
-Depends on the yaml package in kiwi.
 
-For simple usage examples check the test folder.
+USAGE
+=====
+
+Simple usage example:
+
+var sys = require('sys');
+var bs = require('../lib/beanstalk_client');
+var client = bs.Client();
+
+client.use('default').onSuccess(function(data) {
+  sys.puts(sys.inspect(data));
+
+  client.put('my job').onSuccess(function(data) {
+    sys.puts(sys.inspect(data));
+    client.disconnect();
+  });
+});
+
+
+BEANSPECTOR
+===========
 
 Also included is the cli demo app 'beanspector', that just outputs
 info about tubes and gives one the possibility to empty and put jobs into them.
+A simple
+
+node beanspector.js -h
+
+will give you the help output.
+
+
+TESTING
+=======
+
+Also there are some tests now.
+Please make sure beanstalkd is running on the default settings.
+
+To run all tests:
+
+find tests/ | grep .js | xargs -n1 node
 
 

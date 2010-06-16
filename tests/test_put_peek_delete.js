@@ -1,23 +1,38 @@
 var sys = require('sys');
+var assert = require('assert');
 var bs = require('../lib/beanstalk_client');
 
-//bs.Debug.activate();
+sys.puts('testing put, peek, delete');
+
 var client = bs.Client();
-var new_id;
 
-var obj = "my job", pri=1, delay=0, ttr=60;
-var _self = this;
+var success = false;
+var error = false;
 
-client.put(obj).onSuccess(function(data) {
+client.put('test').onSuccess(function(data) {
 	sys.puts(sys.inspect(data));
-	new_id = parseInt(data);
+	var test_id = data[0];
 	
-	client.peek(new_id).onSuccess(function(data) {
-		sys.puts(sys.inspect(typeof data));
-
-		client.deleteJob(new_id).onSuccess(function(data) {
-			sys.puts(sys.inspect(data));
+	client.peek(test_id).onSuccess(function(data) {
+		sys.puts(sys.inspect(data));
+		assert.ok(data);
+		assert.equal(data.id, test_id);
+		assert.equal(data.data, 'test');
+		assert.equal(typeof data, 'object');
+		success = true;
+		
+		client.deleteJob(test_id).onSuccess(function() {
 			client.disconnect();
 		});
 	});
+});
+
+client.addListener('error', function() {
+	error = true;
+});
+
+process.addListener('exit', function() {
+	assert.ok(!error);
+	assert.ok(success);
+	sys.puts('test passed');
 });
