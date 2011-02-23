@@ -1,5 +1,10 @@
 A Beanstalk client utilising node.js.
-Depends on the yaml package from the kiwi package manager.
+Tested for beanstalk 1.4.6.
+
+REQUIREMENTS
+============
+
+npm install yaml
 
 
 USAGE
