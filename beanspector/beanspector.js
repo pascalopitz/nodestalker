@@ -1,4 +1,3 @@
-var sys = require('sys');  
 var bt = require('../lib/beanstalk_client');
 
 /**
@@ -34,21 +33,21 @@ var TubeInspector = new function() {
 	
 	this.listtubes = function() {
 		client.list_tubes().onSuccess(function(data) {
-			sys.puts(sys.inspect(data));
+			console.log(data);
 			client.disconnect();
 		});
 	};
 
 	this.statstube = function(tube) {
 		client.stats_tube(tube).onSuccess(function(data) {
-			sys.puts(sys.inspect(data));
+			console.log(data);
 			client.disconnect();
 		});
 	};
 	
 	this.listcontent = function(tube) {
 		var listFunc = function(data) {
-			sys.puts('listing tube '+tube);
+			console.log('listing tube '+tube);
 			client.reserve().onSuccess(TubeInspector.listcontentHandler);
 
 			if(timeout) {
@@ -62,7 +61,7 @@ var TubeInspector = new function() {
 		client.watch(tube).onSuccess(function(data) {
 			if(tube != 'default') {
 				client.ignore('default').onSuccess(function(idata) {
-					sys.puts('ignoring default tube');
+					console.log('ignoring default tube');
 					listFunc(data);
 				});
 			} else {
@@ -72,13 +71,13 @@ var TubeInspector = new function() {
 	};
 	
 	this.listcontentHandler = function(data) {
-		sys.puts(sys.inspect(data));
+		console.log(data);
 		client.reserve().onSuccess(TubeInspector.listcontentHandler);
 	};
 
 	this.empty = function(tube) {
 		var listFunc = function(data) {
-			sys.puts('emptying tube '+tube);
+			console.log('emptying tube '+tube);
 			client.reserve().onSuccess(TubeInspector.emptyHandler);
 
 			if(timeout) {
@@ -92,7 +91,7 @@ var TubeInspector = new function() {
 		client.watch(tube).onSuccess(function(data) {
 			if(tube != 'default') {
 				client.ignore('default').onSuccess(function(idata) {
-					sys.puts('ignoring default tube');
+					console.log('ignoring default tube');
 					listFunc(data);
 				});
 			} else {
@@ -102,7 +101,7 @@ var TubeInspector = new function() {
 	};
 	
 	this.emptyHandler = function(data) {
-		sys.puts(sys.inspect(data));
+		console.log(data);
 		client.deleteJob(data.id).onSuccess(function() {
 			client.reserve().onSuccess(TubeInspector.emptyHandler);
 		});
@@ -111,7 +110,7 @@ var TubeInspector = new function() {
 	this.put = function(tube, input_data) {
 		client.use(tube).onSuccess(function(data) {
 			client.put(input_data).onSuccess(function(data) {
-				sys.puts(data);
+				console.log(data);
 				client.disconnect();
 			});
 		});
@@ -120,7 +119,7 @@ var TubeInspector = new function() {
 	this.kick = function(tube, input_data) {
 		client.use(tube).onSuccess(function(data) {
 			client.kick(input_data).onSuccess(function(data) {
-				sys.puts(data);
+				console.log(data);
 				client.disconnect();
 			});
 		});
@@ -132,15 +131,15 @@ var TubeInspector = new function() {
 */
 var allowed = [];
 allowed['-h'] = function() { 
-	sys.puts('usage:');
-	sys.puts('node beanspector.js [--port=11300] [--host=127.0.0.1] args');
-	sys.puts('  -h: help message');
-	sys.puts('  -lt: Lists tubes');
-	sys.puts('  -st tube: Stats on tube');
-	sys.puts('  -lc tube: Lists tube content');
-	sys.puts('  -te tube: Empties tube');
-	sys.puts('  -pt tube data: Puts job data in tube');
-	sys.puts('  -k tube number: Kicks number of jobs tube');
+	console.log('usage:');
+	console.log('node beanspector.js [--port=11300] [--host=127.0.0.1] args');
+	console.log('  -h: help message');
+	console.log('  -lt: Lists tubes');
+	console.log('  -st tube: Stats on tube');
+	console.log('  -lc tube: Lists tube content');
+	console.log('  -te tube: Empties tube');
+	console.log('  -pt tube data: Puts job data in tube');
+	console.log('  -k tube number: Kicks number of jobs tube');
 };
 allowed['-lt'] = TubeInspector.listtubes;
 allowed['-st'] = function() { TubeInspector.statstube(argv[3]); };

@@ -1,8 +1,7 @@
-var sys = require('sys');
 var assert = require('assert');
 var bs = require('../lib/beanstalk_client');
 
-sys.puts('testing reserve_with_timeout');
+console.log('testing reserve_with_timeout');
 
 var client = bs.Client();
 
@@ -22,5 +21,5 @@ client.addListener('error', function() {
 process.addListener('exit', function() {
 	assert.ok(!error);
 	assert.ok(success);
-	sys.puts('test passed');
+	console.log('test passed');
 });

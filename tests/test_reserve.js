@@ -1,8 +1,7 @@
-var sys = require('sys');
 var assert = require('assert');
 var bs = require('../lib/beanstalk_client');
 
-sys.puts('testing watch, reserve, use, put');
+console.log('testing watch, reserve, use, put');
 
 var client = bs.Client();
 var client2 = bs.Client();
@@ -17,7 +16,7 @@ var tube = 'reservetest';
 
 client.watch(tube).onSuccess(function(data) {
 	client.reserve().onSuccess(function(data) {
-		sys.puts(sys.inspect(data));
+		console.log(data);
 		assert.ok(data.id);
 		assert.equal(data.data, 'test');
 		success = true;
@@ -31,7 +30,7 @@ client.watch(tube).onSuccess(function(data) {
 setTimeout(function() {
 	client2.use(tube).onSuccess(function(data) {
 		client2.put('test').onSuccess(function(data) {
-			sys.puts(sys.inspect(data));
+			console.log(data);
 			assert.ok(data);
 			success2 = true;
 			client2.disconnect();
@@ -52,5 +51,5 @@ process.addListener('exit', function() {
 	assert.ok(success);
 	assert.ok(!error2);
 	assert.ok(success2);
-	sys.puts('test passed');
+	console.log('test passed');
 });

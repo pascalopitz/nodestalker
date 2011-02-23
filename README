@@ -12,15 +12,14 @@ USAGE
 
 Simple usage example:
 
-var sys = require('sys');
 var bs = require('../lib/beanstalk_client');
 var client = bs.Client();
 
 client.use('default').onSuccess(function(data) {
-  sys.puts(sys.inspect(data));
+  console.log(data);
 
   client.put('my job').onSuccess(function(data) {
-	sys.puts(sys.inspect(data));
+	console.log(data);
 	client.disconnect();
   });
 });

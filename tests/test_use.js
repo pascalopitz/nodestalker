@@ -1,8 +1,7 @@
-var sys = require('sys');
 var assert = require('assert');
 var bs = require('../lib/beanstalk_client');
 
-sys.puts('testing use');
+console.log('testing use');
 
 var client = bs.Client();
 
@@ -22,6 +21,6 @@ client.addListener('error', function() {
 process.addListener('exit', function() {
 	assert.ok(!error);
 	assert.ok(success);
-	sys.puts('test passed');
+	console.log('test passed');
 });
 
