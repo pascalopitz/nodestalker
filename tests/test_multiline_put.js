@@ -15,15 +15,15 @@ client.put("test\r\nhere\r\n").onSuccess(function(data) {
 	
 	client.peek(test_id).onSuccess(function(data) {
 		sys.puts(sys.inspect(data));
-        assert.ok(data);
-        assert.equal(data.id, test_id);
-        assert.equal(data.data, "test\r\nhere\r\n");
-        assert.equal(typeof data, 'object');
+		assert.ok(data);
+		assert.equal(data.id, test_id);
+		assert.equal(data.data, "test\r\nhere\r\n");
+		assert.equal(typeof data, 'object');
 		success = true;
 		
-        client.deleteJob(test_id).onSuccess(function() {
+		client.deleteJob(test_id).onSuccess(function() {
 			client.disconnect();
-        });
+		});
 	});
 });
 
