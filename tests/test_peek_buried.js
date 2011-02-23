@@ -10,20 +10,16 @@ var success = false;
 var error = false;
 
 client.use('burytest').onSuccess(function(data) {
-	client.put('test').onSuccess(function(data) {
-		sys.puts(sys.inspect(data));
+	client.put('burytest').onSuccess(function(data) {
 		var test_id = data[0];
 	
-		client.watch('burytest').onSuccess(function(data) {
+		client.watch('burytest').onSuccess(function() {
 			client.reserve().onSuccess(function(data) {
 				client.bury(test_id).onSuccess(function(data) {
-					sys.puts(sys.inspect(data));
-
 					client.peek_buried().onSuccess(function(data) {
-						sys.puts(sys.inspect(data));
 						assert.ok(data);
 						assert.equal(data.id, test_id);
-						assert.equal(data.data, 'test');
+						assert.equal(data.data, 'burytest');
 						assert.equal(typeof data, 'object');
 						success = true;
 		
