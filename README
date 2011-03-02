@@ -25,17 +25,10 @@ client.use('default').onSuccess(function(data) {
 });
 
 
-BEANSPECTOR
-===========
+DOCUMENTATION
+=============
 
-Also included is the cli demo app 'beanspector', that just outputs
-info about tubes and gives one the possibility to empty and put jobs into them.
-A simple
-
-node beanspector.js -h
-
-will give you the help output.
-
+Annotated source in the docs folder
 
 TESTING
 =======
