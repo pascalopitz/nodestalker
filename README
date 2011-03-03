@@ -1,10 +1,10 @@
-A Beanstalk client utilising node.js.
-Tested for beanstalk 1.4.6.
+A Beanstalk client utilising node.js
+Tested for beanstalkd 1.4.6
 
-REQUIREMENTS
-============
+INSTALL
+=======
 
-npm install yaml
+npm install nodestalker
 
 
 USAGE
@@ -40,4 +40,11 @@ To run all tests:
 
 find tests/ | grep .js | xargs -n1 node
 
+
+CREDIT
+======
+
+Depends on the yaml package by visionmedia.
+
+https://github.com/visionmedia/js-yaml
 

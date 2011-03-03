@@ -1,0 +1,20 @@
+{
+    "name": "nodestalker"
+    , "description": "A Beanstalk client for node.js"
+    , "keywords": ["beanstalkd", "queue"]
+    , "version": "0.1.0"
+    , "author": "Pascal Opitz <pascal@ilikecode.co.uk> (http://www.ilikecode.co.uk)"
+    , "repository": {
+        "type": "git"
+        , "url": "git://github.com/pascalopitz/nodestalker.git"
+    }
+    , "main": "./lib/beanstalk_client.js"
+    , "dependencies": {
+        "yaml": ""
+    }
+    , "licenses":
+    [{
+        "type": "MIT"
+        , "url": "http://github.com/pascalopitz/nodestalker/raw/master/LICENSE"
+    }]
+}
