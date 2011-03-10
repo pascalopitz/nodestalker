@@ -25,7 +25,7 @@ Simple usage example:
 
 
 
-## How do I reserve multiple items?
+### How do I reserve multiple items?
 
 Each client basically represents one open socket to beanstalkd. 
 Each command call just pumps one command into that socket.
@@ -77,8 +77,7 @@ This means that you'll have to repeat watch and ignore commands for each socket.
                 console.log('received job:', job);
                 resJob();
 
-                processJob(job,
-                function() {
+                processJob(job, function() {
                     client.deleteJob(job.id).onSuccess(function(del_msg) {
                         console.log('deleted', job);
                         console.log(del_msg);
