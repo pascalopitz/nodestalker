@@ -28,7 +28,8 @@ Simple usage example:
 ### How do I reserve multiple items?
 
 Each client basically represents one open socket to beanstalkd. 
-Each command call just pumps one command into that socket.
+Each command call just pumps one command into that socket, which then expects a corresponding return.
+
 The server should maintain the state of the socket. 
 However, reserve (or reserve with timeout) will only pull one job. 
 You should then be able to reserve again on the same socket with the state of watch and ignore still preserved by the server.
