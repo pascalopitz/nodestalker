@@ -10,8 +10,8 @@ Tested for beanstalkd 1.4.6
 
 Simple usage example:
 
-    var bs = require('../lib/beanstalk_client');
-    var client = bs.Client();
+    var bs = require('nodestalker'),
+        client = bs.Client();
 
     client.use('default').onSuccess(function(data) {
       console.log(data);
@@ -36,9 +36,9 @@ You should then be able to reserve again on the same socket with the state of wa
 
 Probably the most common usage scenario:
 
-    var bs = require('../lib/beanstalk_client.js');
-    var client = bs.Client();
-    var tube = 'test_tube';
+    var bs = require('nodestalker'),
+        client = bs.Client(),
+        tube = 'test_tube';
 
     client.watch(tube).onSuccess(function(data) {
         function resJob() {
@@ -59,8 +59,8 @@ Probably the most common usage scenario:
 If you want to do this fully in a fully asynchronous way, because there's a blocking process happening otherwise, you'll have to work with multiple sockets.
 This means that you'll have to repeat watch and ignore commands for each socket.
 
-    var bs = require('./lib/beanstalk_client.js');
-    var tube = 'test_tube';
+    var bs = require('nodestalker'),
+        tube = 'test_tube';
 
     function processJob(job, callback) {
         // doing something really expensive
