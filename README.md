@@ -104,7 +104,7 @@ Please make sure beanstalkd is running on the default settings.
 
 To run all tests:
 
-    find tests/ | grep .js | xargs -n1 node
+    npm test
 
 
 ## CREDIT
