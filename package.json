@@ -2,8 +2,8 @@
     "name": "nodestalker"
     , "description": "A Beanstalk client for node.js"
     , "keywords": ["beanstalkd", "queue"]
-    , "version": "0.1.3"
-    , "author": "Pascal Opitz <pascal@ilikecode.co.uk> (http://www.ilikecode.co.uk)"
+    , "version": "0.1.4"
+    , "author": "Pascal Opitz <contact@pascalopitz.com> (http://blog.pascalopitz.com)"
     , "repository": {
         "type": "git"
         , "url": "git://github.com/pascalopitz/nodestalker.git"
