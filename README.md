@@ -1,6 +1,8 @@
 A Beanstalk client utilising node.js
 Tested for beanstalkd 1.4.6
 
+[![Build Status](https://travis-ci.org/pascalopitz/nodestalker.png)](https://travis-ci.org/pascalopitz/nodestalker)
+
 ## INSTALL
 
     npm install nodestalker
