@@ -1,7 +1,6 @@
+console.log('testing list_tubes');
 var assert = require('assert');
 var bs = require('../lib/beanstalk_client');
-
-console.log('testing list_tubes');
 
 var port = 11333;
 
@@ -16,7 +15,7 @@ var mock_server = net.createServer(function(conn) {
             conn.write(response);
         }
     });
-    
+
     conn.on('end', function() {
         mock_server.close();
     });
@@ -28,7 +27,7 @@ var client = bs.Client('127.0.0.1:' + port);
 var success = false;
 var error = false;
 
-client.list_tubes().onSuccess(function(data) {
+client.listTubes().onSuccess(function(data) {
 	console.log(data);
 	assert.ok(data);
 	assert.equal(typeof data, 'object');

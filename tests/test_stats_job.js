@@ -1,43 +1,27 @@
+console.log('* testing statsJob() not existing');
 var assert = require('assert');
-var bs = require('../lib/beanstalk_client');
-
-console.log('testing stats_job not existing');
-
-var port = 11333;
-
-var net = require('net');
-var mock_server = net.createServer(function(conn) {
-    conn.on('data', function(data) {
-        if(String(data) == "stats-job 111111111\r\n") {
-            conn.write('NOT_FOUND\r\n');
-        }
-    });
-
-    conn.on('end', function() {
-        mock_server.close();
-    });
+var helper = require('./helper');
+var mockServer = new helper.mockServer(function (conn, data) {
+  if(String(data) == "stats-job 111111111\r\n") {
+    conn.write('NOT_FOUND\r\n');
+  }
 });
-mock_server.listen(port);
+var client = mockServer.Client();
+var error;
 
-var client = bs.Client('127.0.0.1:' + port);
-
-var success = false;
-var error = false;
-
-client.stats_job(111111111).onSuccess(function(data) {
-	assert.ok(data);
-	assert.ok(data.length);
-	assert.equal(data[0], 'NOT_FOUND');
-	success = true;
-	client.disconnect();
-});
-
-client.addListener('error', function() {
-	error = true;
-});
+client.statsJob(111111111)
+  .onSuccess(function (data) {
+    client.disconnect();
+  })
+  .onError(function (err) {
+    error = err;
+    assert.ok(err);
+    assert.ok(err.length);
+    assert.equal(err[0], 'NOT_FOUND');
+    client.disconnect();
+  });
 
 process.addListener('exit', function() {
-	assert.ok(!error);
-	assert.ok(success);
-	console.log('test passed');
+  assert.ok(error);
+  console.log('test passed');
 });
