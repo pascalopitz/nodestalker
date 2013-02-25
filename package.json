@@ -13,7 +13,7 @@
         "yaml": ""
     }
     , "scripts": {
-        "test": "find tests/ | grep .js | xargs -n1 node"
+        "test": "find tests/test_*.js | xargs -n1 node"
     }
     , "licenses":
     [{
