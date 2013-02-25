@@ -1,4 +1,4 @@
-console.log('* testing peek_delayed');
+console.log('* testing peekDelayed()');
 var assert = require('assert');
 var helper = require('./helper');
 var mockServer = new helper.mockServer(function (conn, data) {
@@ -9,7 +9,7 @@ var mockServer = new helper.mockServer(function (conn, data) {
 var client = mockServer.Client();
 var error;
 
-client.peek_delayed()
+client.peekDelayed()
   .onSuccess(function (data) {
     assert.ok(data);
     client.disconnect();

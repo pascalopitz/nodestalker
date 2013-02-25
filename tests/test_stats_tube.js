@@ -1,4 +1,4 @@
-console.log('* testing stats_tube');
+console.log('* testing statsTube()');
 var assert = require('assert');
 var helper = require('./helper');
 var mockServer = new helper.mockServer(function (conn, data) {
@@ -26,7 +26,7 @@ var mockServer = new helper.mockServer(function (conn, data) {
 var client = mockServer.Client();
 var error;
 
-client.stats_tube('default')
+client.statsTube('default')
   .onSuccess(function (data) {
     assert.ok(data);
     assert.ok(data.name);

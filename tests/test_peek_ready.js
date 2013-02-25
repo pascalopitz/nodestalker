@@ -1,8 +1,6 @@
+console.log('testing put, peek_ready, delete');
 var assert = require('assert');
 var bs = require('../lib/beanstalk_client');
-
-console.log('testing put, peek_ready, delete');
-
 var port = 11333;
 
 var net = require('net');
@@ -20,7 +18,7 @@ var mock_server = net.createServer(function(conn) {
             conn.write("DELETED\r\n");
         }
     });
-    
+
     conn.on('end', function(){
         mock_server.close();
     })
@@ -35,15 +33,15 @@ var error = false;
 client.put('test').onSuccess(function(data) {
 	console.log(data);
 	var test_id = data[0];
-	
-	client.peek_ready().onSuccess(function(data) {
+
+	client.peekReady().onSuccess(function(data) {
 		console.log(data);
 		assert.ok(data);
 		assert.equal(data.id, test_id);
 		assert.equal(data.data, 'test');
 		assert.equal(typeof data, 'object');
 		success = true;
-		
+
 		client.deleteJob(test_id).onSuccess(function() {
 			client.disconnect();
 		});

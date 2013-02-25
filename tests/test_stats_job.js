@@ -1,4 +1,4 @@
-console.log('* testing stats_job not existing');
+console.log('* testing statsJob() not existing');
 var assert = require('assert');
 var helper = require('./helper');
 var mockServer = new helper.mockServer(function (conn, data) {
@@ -9,7 +9,7 @@ var mockServer = new helper.mockServer(function (conn, data) {
 var client = mockServer.Client();
 var error;
 
-client.stats_job(111111111)
+client.statsJob(111111111)
   .onSuccess(function (data) {
     client.disconnect();
   })
