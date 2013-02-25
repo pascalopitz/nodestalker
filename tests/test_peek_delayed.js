@@ -1,41 +1,26 @@
+console.log('* testing peek_delayed');
 var assert = require('assert');
-var bs = require('../lib/beanstalk_client');
-
-console.log('testing peek_delayed');
-
-var port = 11333;
-
-var net = require('net');
-var mock_server = net.createServer(function(conn) {
-    conn.on('data', function(data) {
-        if(String(data) == 'peek-delayed\r\n') {
-            conn.write("OK\r\n");
-        }
-    });
-    
-    conn.on('end', function(){
-        mock_server.close();
-    })
+var helper = require('./helper');
+var mockServer = new helper.mockServer(function (conn, data) {
+  if(String(data) == 'peek-delayed\r\n') {
+    conn.write("FOUND 10 7\r\ntest\r\n");
+  }
 });
-mock_server.listen(port);
+var client = mockServer.Client();
+var error;
 
-var client = bs.Client('127.0.0.1:' + port);
-
-var success = false;
-var error = false;
-
-client.peek_delayed().onSuccess(function(data) {
-	assert.ok(data);
-	success = true;
-	client.disconnect();
-});
-
-client.addListener('error', function() {
-	error = true;
-});
+client.peek_delayed()
+  .onSuccess(function (data) {
+    assert.ok(data);
+    client.disconnect();
+  })
+  .onError(function (err) {
+    console.log('ERROR', err);
+    error = err;
+    client.disconnect();
+  });
 
 process.addListener('exit', function() {
-	assert.ok(!error);
-	assert.ok(success);
-	console.log('test passed');
+  assert.ok(!error);
+  console.log('test passed');
 });
