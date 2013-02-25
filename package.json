@@ -10,7 +10,7 @@
     }
     , "main": "./lib/beanstalk_client"
     , "dependencies": {
-        "yaml": ""
+        "js-yaml": "2.0.2"
     }
     , "scripts": {
         "test": "find tests/test_*.js | xargs -n1 node"
