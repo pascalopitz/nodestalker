@@ -53,8 +53,7 @@ client.put('test').onSuccess(function(job_data) {
 	var test_id = job_data[0];
 
     client.stats_job(test_id).onSuccess(function(data) {
-        console.log('here');
-    	assert.ok(data);
+        assert.ok(data);
     	assert.ok(data.id);
     	assert.equal(test_id, data.id);
     	success = true;
