@@ -111,9 +111,9 @@ To run all tests:
 
 ## CREDIT
 
-Depends on the yaml package by visionmedia.
+Depends on the yaml package by nodeca.
 
-https://github.com/visionmedia/js-yaml
+https://github.com/nodeca/js-yaml
 
 Thanks to people that took time to fix some things.
 
