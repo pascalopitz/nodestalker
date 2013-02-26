@@ -7,23 +7,23 @@ var port = 11333;
 
 var net = require('net');
 var mock_server = net.createServer(function(conn) {
-    conn.on('data', function(data) {
-        if(String(data).indexOf('put') > -1) {
-            conn.write("INSERTED 10\r\n");
-        }
+	conn.on('data', function(data) {
+		if(String(data).indexOf('put') > -1) {
+			conn.write("INSERTED 10\r\n");
+		}
 
-        if(String(data) == 'peek-ready\r\n') {
-            conn.write("FOUND 10 7\r\ntest\r\n");
-        }
+		if(String(data) == 'peek-ready\r\n') {
+			conn.write("FOUND 10 7\r\ntest\r\n");
+		}
 
-        if(String(data) == 'delete 10\r\n') {
-            conn.write("DELETED\r\n");
-        }
-    });
-    
-    conn.on('end', function(){
-        mock_server.close();
-    })
+		if(String(data) == 'delete 10\r\n') {
+			conn.write("DELETED\r\n");
+		}
+	});
+	
+	conn.on('end', function(){
+		mock_server.close();
+	})
 });
 mock_server.listen(port);
 

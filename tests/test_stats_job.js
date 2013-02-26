@@ -7,15 +7,15 @@ var port = 11333;
 
 var net = require('net');
 var mock_server = net.createServer(function(conn) {
-    conn.on('data', function(data) {
-        if(String(data) == "stats-job 111111111\r\n") {
-            conn.write('NOT_FOUND\r\n');
-        }
-    });
+	conn.on('data', function(data) {
+		if(String(data) == "stats-job 111111111\r\n") {
+			conn.write('NOT_FOUND\r\n');
+		}
+	});
 
-    conn.on('end', function() {
-        mock_server.close();
-    });
+	conn.on('end', function() {
+		mock_server.close();
+	});
 });
 mock_server.listen(port);
 

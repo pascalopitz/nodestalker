@@ -7,15 +7,15 @@ var port = 11333;
 
 var net = require('net');
 var mock_server = net.createServer(function(conn) {
-    conn.on('data', function(data) {
-        if(String(data) == "ignore default\r\n") {
-            conn.write('WATCHING');
-        }
-    });
-    
-    conn.on('end', function() {
-        mock_server.close();
-    });    
+		conn.on('data', function(data) {
+				if(String(data) == "ignore default\r\n") {
+						conn.write('WATCHING');
+				}
+		});
+		
+		conn.on('end', function() {
+				mock_server.close();
+		});		
 });
 mock_server.listen(port);
 
@@ -26,7 +26,7 @@ var error = false;
 
 client.ignore('default').onSuccess(function(data) {
 	console.log(data);
-  	assert.ok(data);
+		assert.ok(data);
 	assert.equal(typeof data, 'object');
 	success = true;
 	client.disconnect();

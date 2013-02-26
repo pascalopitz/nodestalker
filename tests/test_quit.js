@@ -7,16 +7,16 @@ var port = 11333;
 
 var net = require('net');
 var mock_server = net.createServer(function(conn) {
-    conn.on('data', function(data) {
-        if(String(data) == "use default\r\n") {
-            conn.write('USING default\r\n');
-        }
+	conn.on('data', function(data) {
+		if(String(data) == "use default\r\n") {
+			conn.write('USING default\r\n');
+		}
 
-        if(String(data) == "quit\r\n") {
-            conn.destroy();
-            mock_server.close();
-        }
-    });
+		if(String(data) == "quit\r\n") {
+			conn.destroy();
+			mock_server.close();
+		}
+	});
 });
 mock_server.listen(port);
 
