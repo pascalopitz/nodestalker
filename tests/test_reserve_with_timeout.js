@@ -1,27 +1,15 @@
-var assert = require('assert');
-var bs = require('../lib/beanstalk_client');
-
 console.log('testing reserve_with_timeout');
 
-var port = 11333;
+var assert = require('assert');
+var helper = require('./helper');
 
-var net = require('net');
+helper.bind(function(conn, data) {
+	if(String(data) == 'reserve-with-timeout 2\r\n') {
+		conn.write("RESERVED 9 4\r\ntest\r\n");
+	}
+}, true);
+var client = helper.getClient();
 
-var mock_server = net.createServer(function(conn) {
-	
-	conn.on('data', function(data) {
-		if(String(data) == 'reserve-with-timeout 2\r\n') {
-			conn.write("RESERVED 9 4\r\ntest\r\n");
-		}
-	});
-	
-	conn.on('end', function() {
-		mock_server.close();
-	});
-});
-mock_server.listen(port);
-
-var client = bs.Client('127.0.0.1:' + port);
 
 var success = false;
 var error = false;

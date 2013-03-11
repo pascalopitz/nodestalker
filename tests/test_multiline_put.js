@@ -1,30 +1,24 @@
-var assert = require('assert');
-var bs = require('../lib/beanstalk_client');
-
 console.log('testing multiline put, peek, delete');
 
-var port = 11333;
+var assert = require('assert');
+var helper = require('./helper');
 
-var net = require('net');
-var mock_server = net.createServer(function(conn) {
-	conn.on('data', function(data) {
-		if(String(data).indexOf('put') > -1) {
-			conn.write("INSERTED 10\r\n");
-		}
-		
-		if(String(data) == 'peek 10\r\n') {
-			conn.write("FOUND 10 13\r\ntest\r\nhere\r\n\r\n");
-		}
+helper.bind(function(conn, data) {
+	if(String(data).indexOf('put') > -1) {
+		conn.write("INSERTED 10\r\n");
+	}
+	
+	if(String(data) == 'peek 10\r\n') {
+		conn.write("FOUND 10 13\r\ntest\r\nhere\r\n\r\n");
+	}
 
-		if(String(data) == "delete 10\r\n") {
-			conn.write("DELETED\r\n");
-			mock_server.close();
-		}
-	});
+	if(String(data) == "delete 10\r\n") {
+		conn.write("DELETED\r\n");
+		this.close();
+	}
 });
-mock_server.listen(port);
+var client = helper.getClient();
 
-var client = bs.Client('127.0.0.1:' + port);
 var success = false;
 var error = false;
 

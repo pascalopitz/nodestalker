@@ -1,25 +1,15 @@
-var assert = require('assert');
-var bs = require('../lib/beanstalk_client');
-
 console.log('testing peek_delayed');
 
-var port = 11333;
+var assert = require('assert');
+var helper = require('./helper');
 
-var net = require('net');
-var mock_server = net.createServer(function(conn) {
-	conn.on('data', function(data) {
-		if(String(data) == 'peek-delayed\r\n') {
-			conn.write("OK\r\n");
-		}
-	});
-	
-	conn.on('end', function(){
-		mock_server.close();
-	})
-});
-mock_server.listen(port);
+helper.bind(function(conn, data) {
+	if(String(data) == 'peek-delayed\r\n') {
+		conn.write("OK\r\n");
+	}
+}, true);
+var client = helper.getClient();
 
-var client = bs.Client('127.0.0.1:' + port);
 
 var success = false;
 var error = false;

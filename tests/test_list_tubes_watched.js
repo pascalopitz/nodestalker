@@ -1,33 +1,24 @@
-var assert = require('assert');
-var bs = require('../lib/beanstalk_client');
-
 console.log('testing list_tubes_watched');
 
-var port = 11333;
+var assert = require('assert');
+var helper = require('./helper');
 
-var net = require('net');
-var mock_server = net.createServer(function(conn) {
-	conn.on('data', function(data) {
-		if(String(data) == "watch default\r\n") {
-			conn.write("WATCHING\r\n");
-		}
+helper.bind(function(conn, data) {
+	if(String(data) == "watch default\r\n") {
+		conn.write("WATCHING\r\n");
+	}
 
-		if(String(data) == "list-tubes-watched\r\n") {
-			var response = 'OK';
-			response += "\r\n";
-			response += "---\n- default\n  - second\n"
-			response += "\r\n";
-			conn.write(response);
-		}
-	});
+	if(String(data) == "list-tubes-watched\r\n") {
+		var response = 'OK';
+		response += "\r\n";
+		response += "---\n- default\n  - second\n"
+		response += "\r\n";
+		conn.write(response);
+	}
+}, true);
+var client = helper.getClient();
 
-	conn.on('end', function() {
-		mock_server.close();
-	});
-});
-mock_server.listen(port);
 
-var client = bs.Client('127.0.0.1:' + port);
 var success = false;
 var error = false;
 
