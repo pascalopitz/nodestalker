@@ -5,7 +5,7 @@ var helper = require('./helper');
 
 helper.bind(function(conn, data) {
 	if(String(data) == 'peek-delayed\r\n') {
-		conn.write("OK\r\n");
+		conn.write("NOT_FOUND\r\n");
 	}
 }, true);
 var client = helper.getClient();
