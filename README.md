@@ -13,7 +13,7 @@ Tested for beanstalkd 1.4.6
 Simple usage example:
 
     var bs = require('nodestalker'),
-        client = bs.Client();
+        client = bs.Client('127.0.0.1:11300');
 
     client.use('default').onSuccess(function(data) {
       console.log(data);
@@ -39,7 +39,7 @@ You should then be able to reserve again on the same socket with the state of wa
 Probably the most common usage scenario:
 
     var bs = require('nodestalker'),
-        client = bs.Client(),
+        client = bs.Client('127.0.0.1:11300'),
         tube = 'test_tube';
 
     client.watch(tube).onSuccess(function(data) {
@@ -73,7 +73,7 @@ This means that you'll have to repeat watch and ignore commands for each socket.
     }
 
     function resJob() {
-        var client = bs.Client();
+        var client = bs.Client('127.0.0.1:11300');
 
         client.watch(tube).onSuccess(function(data) {
             client.reserve().onSuccess(function(job) {
@@ -123,3 +123,4 @@ jney
 nmcquay
 tokudu
 justinwalsh
+yeldarby
