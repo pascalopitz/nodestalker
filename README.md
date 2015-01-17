@@ -3,6 +3,10 @@ Tested for beanstalkd 1.4.6
 
 [![Build Status](https://travis-ci.org/pascalopitz/nodestalker.png)](https://travis-ci.org/pascalopitz/nodestalker)
 
+[![Dependencies](https://david-dm.org/pascalopitz/nodestalker.png)](https://david-dm.org/pascalopitz/nodestalker)
+
+[![NPM](http://nodei.co/npm/nodestalker.png)](http://nodei.co/npm/nodestalker/)
+
 ## INSTALL
 
     npm install nodestalker
