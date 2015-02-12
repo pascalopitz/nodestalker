@@ -39,5 +39,8 @@ module.exports = {
 	},
 	getClient : function () {
 		return bs.Client('127.0.0.1:' + port);
+	},
+	activateDebug : function() {
+		bs.Debug.activate();
 	}
 }
