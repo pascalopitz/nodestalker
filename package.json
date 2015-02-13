@@ -1,57 +1,65 @@
 {
-    "name": "nodestalker"
-    , "description": "A Beanstalk client for node.js"
-    , "keywords": ["beanstalkd", "queue"]
-    , "version": "0.1.15"
-    , "author": "Pascal Opitz <contact@pascalopitz.com> (http://blog.pascalopitz.com)"
-    , "contributors" : [
-        {
-            "name" : "Andrew Houghton",
-            "github" : "https://github.com/aahoughton"
-        },
-        {
-            "name" : "Amjad Mohamed",
-            "github" : "https://github.com/andho"
-        },
-        {
-            "name" : "Jean-Sébastien Ney",
-            "github" : "https://github.com/jney"
-        },
-        {
-            "name" : "Nate McQuay",
-            "github" : "https://github.com/nmcquay"
-        },
-        {
-            "name" : "Anton Lopyrev",
-            "github" : "https://github.com/tokudu"
-        },
-        {
-            "name" : "Justin Walsh",
-            "github" : "https://github.com/justinwalsh"
-        },
-        {
-            "name" : "Brad Dwyer",
-            "github" : "https://github.com/yeldarby"
-        },
-        {
-            "name" : "Joel Bradshaw",
-            "github" : "https://github.com/cincodenada"
-        }
-    ]
-    , "repository": {
-        "type": "git"
-        , "url": "git://github.com/pascalopitz/nodestalker.git"
+  "name": "nodestalker",
+  "description": "A Beanstalk client for node.js",
+  "keywords": [
+    "beanstalkd",
+    "queue"
+  ],
+  "version": "0.1.15",
+  "author": "Pascal Opitz <contact@pascalopitz.com> (http://blog.pascalopitz.com)",
+  "contributors": [
+    {
+      "name": "Andrew Houghton",
+      "github": "https://github.com/aahoughton"
+    },
+    {
+      "name": "Amjad Mohamed",
+      "github": "https://github.com/andho"
+    },
+    {
+      "name": "Jean-Sébastien Ney",
+      "github": "https://github.com/jney"
+    },
+    {
+      "name": "Nate McQuay",
+      "github": "https://github.com/nmcquay"
+    },
+    {
+      "name": "Anton Lopyrev",
+      "github": "https://github.com/tokudu"
+    },
+    {
+      "name": "Justin Walsh",
+      "github": "https://github.com/justinwalsh"
+    },
+    {
+      "name": "Brad Dwyer",
+      "github": "https://github.com/yeldarby"
+    },
+    {
+      "name": "Joel Bradshaw",
+      "github": "https://github.com/cincodenada"
     }
-    , "main": "./lib/beanstalk_client"
-    , "dependencies": {
-        "js-yaml": "3.2.5"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/pascalopitz/nodestalker.git"
+  },
+  "main": "./lib/beanstalk_client",
+  "dependencies": {
+    "js-yaml": "3.2.5"
+  },
+  "scripts": {
+    "docs": "./node_modules/.bin/docco ./lib/beanstalk_client.js",
+    "test": "find tests/test_*.js | xargs -n1 node"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/pascalopitz/nodestalker/raw/master/LICENSE"
     }
-    , "scripts": {
-        "test": "find tests/test_*.js | xargs -n1 node"
-    }
-    , "licenses":
-    [{
-        "type": "MIT"
-        , "url": "http://github.com/pascalopitz/nodestalker/raw/master/LICENSE"
-    }]
+  ],
+  "devDependencies": {
+    "docco": "~0.7.0"
+  }
 }

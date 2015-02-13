@@ -101,7 +101,9 @@ This means that you'll have to repeat watch and ignore commands for each socket.
 
 ## DOCUMENTATION
 
-Annotated source in the docs folder
+    npm run-script docs
+
+Annotated source is now in the docs folder
 
 ## TESTING
 
