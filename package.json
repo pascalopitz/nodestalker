@@ -1,6 +1,6 @@
 {
   "name": "nodestalker",
-  "description": "A Beanstalk client for node.js or packaged chrome apps.",
+  "description": "A Beanstalk client for node.js.",
   "keywords": [
     "beanstalkd",
     "queue"
