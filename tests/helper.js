@@ -37,8 +37,8 @@ module.exports = {
 
 		mock_server.listen(port);
 	},
-	getClient : function () {
-		return bs.Client('127.0.0.1:' + port);
+	getClient : function (isRaw) {
+		return bs.Client('127.0.0.1:' + port, isRaw || false);
 	},
 	activateDebug : function() {
 		bs.Debug.activate();
