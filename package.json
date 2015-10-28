@@ -63,6 +63,9 @@
       "url": "http://github.com/pascalopitz/nodestalker/raw/master/LICENSE"
     }
   ],
+  "engines" : {
+      "node" : ">=0.11"
+  },
   "devDependencies": {
     "docco": "~0.7.0"
   }
